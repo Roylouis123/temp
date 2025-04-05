@@ -1,0 +1,22 @@
+name: Deploy to Firebase Hosting on push
+
+on:
+  push:
+    branches:
+      - dev
+      - prod
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: npm ci && npm run build
+
+      - name: Deploy to Firebase Hosting (dev or prod)
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ github.ref == 'refs/heads/prod' && secrets.FIREBASE_SERVICE_ACCOUNT_PROD || secrets.FIREBASE_SERVICE_ACCOUNT_TEMP_C30B2 }}
+          projectId: ${{ github.ref == 'refs/heads/prod' && 'constructo-7bb42' || 'temp-c30b2' }}
+          channelId: live
