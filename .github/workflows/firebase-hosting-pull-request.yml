@@ -18,5 +18,5 @@ jobs:
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ github.ref == 'refs/heads/prod' && secrets.FIREBASE_SERVICE_ACCOUNT_PROD || secrets.FIREBASE_SERVICE_ACCOUNT_TEMP_C30B2 }}
-          projectId: ${{ github.ref == 'refs/heads/prod' && 'constructo-7bb42' || 'temp-c30b2' }}
+          projectId: ${{ github.ref == 'refs/heads/prod' && 'temp-c30b2' || 'temp-c30b2' }}
           channelId: live
